@@ -4,21 +4,42 @@ A turn-based restaurant management game for the SC2002 project, written in Java.
 
 ## Quick start
 
-1. Install **Java 11 or newer** with desktop support. A full **JDK 11+** is recommended because the source launchers compile the game.
+1. Install **Java 11 or newer**. The GUI needs Java with desktop support. A full JDK is only needed if you want to compile or edit the source.
 2. On the GitHub repository page, select **Code → Download ZIP**.
 3. Right-click the downloaded ZIP and choose **Extract All**. Open the extracted repository folder; do not run the game from inside the ZIP.
-4. Double-click the launcher for the stage you want to play:
+4. Double-click the launcher for your preferred game interface:
 
-   | Launcher in the repository root | Game |
+   | Launcher | Interface |
    | --- | --- |
-   | `PLAY_STAGE_1.bat` | Stage 1 |
-   | `PLAY_STAGE_2.bat` | Stage 2 |
-   | `PLAY_STAGE_3.bat` | Stage 3 |
+   | `PLAY_GUI.bat` | Graphical desktop window with buttons and dropdowns |
+   | `PLAY_CLI.bat` | Terminal game controlled by typed commands |
 
-5. In the game window, leave **Original base choices** unticked, set **Seed** to `42`, then click **New game**.
-6. Open [guides/PLAY_AND_WIN.pdf](guides/PLAY_AND_WIN.pdf) and follow the walkthrough for your stage and seed.
+5. When the launcher menu appears, press **1**, **2** or **3** to choose your stage, or **Q** to quit. The stage starts immediately after your selection.
+6. Both launchers use **seed 42** by default. In the GUI, leave **Original base choices** unticked. If you change the seed, click **New game** to apply it.
+7. Open [guides/PLAY_AND_WIN.pdf](guides/PLAY_AND_WIN.pdf) and follow the walkthrough for your stage and seed. For CLI play, translate each guide action using the [terminal controls](#terminal-controls) below.
 
-If a root launcher is unavailable or fails, use one of the direct launch methods below.
+**Launcher location:** keep `PLAY_GUI.bat` and `PLAY_CLI.bat` in the main repository folder, beside `stage-1`, `stage-2`, `stage-3` and `guides`. These two launchers replace the previous three stage-specific launchers and run the prebuilt JARs without compiling.
+
+To play a different stage, run the launcher again and choose another stage. The CLI pauses after the game finishes so you can read the result. If Java fails to launch, the launchers keep the error visible.
+
+### Choose a seed when launching
+
+Open **Command Prompt** in the repository folder and run one of these commands, then choose your stage from the menu:
+
+```bat
+PLAY_GUI.bat --seed 43
+PLAY_CLI.bat --seed 43
+```
+
+For a complete automatic terminal demonstration at seed 42:
+
+```bat
+PLAY_CLI.bat --seed 42 --demo victory
+```
+
+The GUI launcher accepts `--seed NUMBER` or `--base`. The CLI launcher also accepts `--demo victory` or `--demo defeat`. Double-clicking either launcher starts the normal seed-42 game after stage selection.
+
+If a launcher is unavailable or fails, use one of the direct launch methods below.
 
 ## What is different in each stage?
 
@@ -44,15 +65,14 @@ Serving food alone does not count as payment. Revenue and the satisfaction avera
 
 ## How to use the guides to pass the game
 
-The [guides folder](guides/) contains the playing guides. Start with [PLAY_AND_WIN.pdf](guides/PLAY_AND_WIN.pdf): it explains the controls and provides turn-by-turn walkthroughs for seeds **42** and **43**.
+The [guides folder](guides/) contains the playing guides. Start with [PLAY_AND_WIN.pdf](guides/PLAY_AND_WIN.pdf): it explains the controls and provides turn-by-turn walkthroughs for seeds **42** and **43**. You can also read [TURN_BY_TURN.md](guides/TURN_BY_TURN.md) on GitHub, or open the matching `stage-N-seed-42.tsv` or `stage-N-seed-43.tsv` file as a table.
 
 ### 1. Match the walkthrough settings
 
-1. Choose the correct **stage** in the guide.
-2. Untick **Original base choices**.
-3. Enter the exact seed shown in that walkthrough, such as `42`.
-4. Click **New game** and check the displayed active seed. Editing the seed field alone does not restart or change the current game.
-5. Follow the guide from turn 1, without mixing manual actions and demo actions.
+1. Choose the correct **stage and seed** in the guide.
+2. **GUI:** untick **Original base choices**, enter the walkthrough seed and click **New game**. Check the displayed active seed. Editing the field alone does not change a running game.
+3. **CLI:** double-click `PLAY_CLI.bat` for seed 42, or run `PLAY_CLI.bat --seed 43` for seed 43. Select the matching stage at the launcher menu. Check the seed printed at startup.
+4. Follow the guide from turn 1. Use a fresh manual game rather than switching from a partially played demo.
 
 The seed controls ordinary customers' food choices. The same seed reproduces those choices; customer arrivals and all other rules are not fully randomised. A walkthrough for a different seed or original-base mode may produce a different result.
 
@@ -76,7 +96,7 @@ The seed controls ordinary customers' food choices. The same seed reproduces tho
 
 **Example: Stage 1, seed 42, turn 2.** Click **Start turn**, have the Waiter **Take order** for **C1**, have the Chef **Cook** for **C1**, then **Finish turn**. Do not serve C1 yet: this Pasta order needs another cooking action on turn 3.
 
-If your checkpoint differs, click **New game** with the same settings and restart the walkthrough. Later rows assume that every earlier row was followed exactly.
+If your checkpoint differs, restart the walkthrough with the same settings: click **New game** in the GUI, or close and relaunch the CLI. Later rows assume that every earlier row was followed exactly.
 
 ### 3. Check the expected ending
 
@@ -162,7 +182,11 @@ Enter the action when prompted. Use the numeric customer ID: type `1`, not `C1`.
 | Chef | `cook 1` or `wait` |
 | Happy Hour, Stage 3 only, before it has been used | `on` or `off` |
 
-In the terminal, end-of-turn processing happens automatically after the Chef action. There is no separate `Finish turn` command.
+In the terminal, end-of-turn processing happens automatically after the Chef action. There is no separate `Start turn` or `Finish turn` command to type.
+
+**Example: Stage 1, seed 42.** For turn 1, enter `seat 1` at the Waiter prompt and `wait` at the Chef prompt. For turn 2, enter `order 1` and then `cook 1`. Compare the printed end-of-turn totals with the guide.
+
+**Stage 3, seed-42 walkthrough:** answer `off` before turns 1, 2 and 3, then `on` before turn 4. After Happy Hour has been used, the game stops asking about activation. Each turn, enter the guide's Host action, then Waiter action, then Chef action.
 
 ### Change the seed or use original-base mode
 
@@ -179,7 +203,8 @@ Do not combine `--base` and `--seed`. Changing the seed does not guarantee victo
 | --- | --- |
 | `java` is not recognised | Install Java 11+ and make its `bin` folder available on `PATH`. Reopen the terminal and check `java -version`. |
 | `javac` is not recognised / compilation fails because no compiler is installed | Install a full JDK 11+ and check `javac -version`, or use the prebuilt JAR commands. |
-| Launcher uses an old Java installation | Check `JAVA_HOME`. The stage batch scripts use its `bin` folder when it is set; point it to your JDK installation. |
+| Launcher uses an old Java installation | Check `JAVA_HOME` and `PATH`. The root launchers prefer `JAVA_HOME\bin\java.exe` when it exists; otherwise they use `java` from `PATH`. |
+| Launcher cannot find the game JAR | Put both launchers beside the stage folders and extract the full repository. Keep the JAR filenames unchanged. |
 | Double-clicking a JAR does nothing | Open a terminal in the repository folder and use `java -jar stage-1/RestaurantRush_GUI.jar` to see any error. |
 | `UnsupportedClassVersionError` | Check which Java installation the launcher uses and select a compatible newer runtime. The source build scripts target Java 11. |
 | GUI cannot open in a server/headless environment | Run `RestaurantRush_CLI.jar`, or use a computer with a graphical desktop and desktop-capable Java. |
@@ -187,13 +212,14 @@ Do not combine `--base` and `--seed`. Changing the seed does not guarantee victo
 | Both tables are occupied | Wait for payment or departure, or perform another legal action. An invalid action does not consume the staff action. |
 | Result differs from the guide | Check the stage, active seed, original-base setting, action order and Stage 3 Happy Hour timing. Restart from turn 1. |
 | Seed changed but food choices did not update | Click **New game** after editing the seed field. |
-| Guide link is missing locally | Download the full repository, including `guides/`. The uploaded source archive alone may not contain the guide folder or root launchers. |
+| Guide link is missing locally | Download the full repository, including `guides/`, and keep it beside the stage folders. |
 
 ## Repository contents
 
 | Location | Purpose |
 | --- | --- |
-| `PLAY_STAGE_1.bat`, `PLAY_STAGE_2.bat`, `PLAY_STAGE_3.bat` | Windows launchers at the repository root |
+| `PLAY_GUI.bat` | Choose Stage 1, 2 or 3 and launch the graphical game |
+| `PLAY_CLI.bat` | Choose Stage 1, 2 or 3 and launch the terminal game |
 | `guides/` | Playing instructions and seed-specific winning walkthroughs |
 | `stage-1/`, `stage-2/`, `stage-3/` | Separate runnable versions of the game |
 | `stage-N/src/` | Java game logic and Swing GUI source for that stage |
@@ -204,6 +230,7 @@ Do not combine `--base` and `--seed`. Changing the seed does not guarantee victo
 | `stage-N/build.bat`, `stage-N/build.sh` | Rebuild the stage's GUI and CLI JARs |
 
 Here, `stage-N` means `stage-1`, `stage-2` or `stage-3`. The game uses Java's standard libraries, including Swing; no external library, database, Maven or Gradle setup is required.
+
 
 Validation used Java 21.0.13's compiler module with `-source 11 -target 11` because this environment lacks a standalone javac launcher and the Java 11 release symbol archive. GUI components were exercised/rendered headlessly on Swing's event-dispatch thread; Windows native-window and `.bat` execution were not tested here. The provided scripts use `javac --release 11` on a full JDK. This is compilation, component and behaviour validation, not a native Windows launch certification.
 
