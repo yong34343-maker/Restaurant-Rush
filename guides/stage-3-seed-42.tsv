@@ -1,0 +1,19 @@
+Turn	HappyHour	Host	Waiter	Chef	Paid	Revenue	Average	PaidThisTurn
+1	-	seat 1	order 1	cook 1	0	$0.00	N/A	-
+2	-	Wait	wait	cook 1	0	$0.00	N/A	-
+3	-	Wait	serve 1	wait	0	$0.00	N/A	-
+4	Activate	seat 2	order 2	cook 2	0	$0.00	N/A	-
+5	-	Wait	serve 2	wait	1	$18.00	84.00	Cashier collects $18.00 from C1: PAID
+6	-	Wait	wait	wait	1	$18.00	84.00	-
+7	-	seat 3	order 3	cook 3	2	$24.48	92.00	Cashier collects $6.48 from C2: PAID
+8	-	Wait	wait	cook 3	2	$24.48	92.00	-
+9	-	Wait	serve 3	wait	2	$24.48	92.00	-
+10	-	seat 4	order 4	cook 4	2	$24.48	92.00	-
+11	-	Wait	serve 4	wait	3	$42.48	86.67	Cashier collects $18.00 from C3: PAID
+12	-	Wait	wait	wait	3	$42.48	86.67	-
+13	-	seat 5	order 5	cook 5	4	$51.48	88.00	Cashier collects $9.00 from C4: PAID
+14	-	Wait	serve 5	wait	4	$51.48	88.00	-
+15	-	Wait	wait	wait	4	$51.48	88.00	-
+16	-	seat 6	order 6	cook 6	5	$66.48	88.80	Cashier collects $15.00 from C5: PAID
+17	-	Wait	wait	cook 6	5	$66.48	88.80	-
+18	-	Wait	wait	cook 6	5	$66.48	88.80	-
