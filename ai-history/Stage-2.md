@@ -1,7 +1,5 @@
 # Stage 2 AI History
 
-[Back to README](../../README.md)
-
 ## Stage 2 Customer behaviour
 
 ### 1. What is Stage 2 about?
@@ -25,3 +23,5 @@ Add a note at the actual call sites: GameState.takeOrder() calls customer.choose
 The source comparison adds VIPCustomer.java and CriticCustomer.java. Five existing files differ: CustomerFactory.java registers C2 and C3; Menu.java adds getPasta() for the Critic preference; Main.java changes the stage banner; GameWindow.java changes stage labels and help text; GuiMain.java changes stage text in its comment and window title.
 
 GameController.java is identical between these snapshots. GameState.java and Customer.java are also identical. Existing calls use the Customer abstraction, so new customer behaviour is supplied through subclasses and factory creation. This is a concrete example of extending behaviour while preserving stable turn-control code. [S1 to S2 source comparison]
+
+[Back to main README](../Readme.md)
