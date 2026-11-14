@@ -1,8 +1,5 @@
 # Stage 3 AI History
 
-[Back to README](../../README.md)
-
-
 ### 1. What is Stage 3 about?
 
 Stage 3 adds Host, ComboMeal and Happy Hour. The Host seats at most one waiting customer before the Waiter acts; the Waiter can still seat. A combo has two menu-item components, adds their preparation units and costs 90% of their combined price. Happy Hour can be activated once, lasts two turns, discounts newly placed orders by 20%, and restores 15 satisfaction at turn start to customers waiting for a table or food, capped at 100. VIP pricing is applied first. [A Section 4.3; S3 implementation]
@@ -60,3 +57,5 @@ Kitchen and serving: GameController.chefAction(int) → Chef.act(...) → Order.
 Eating and payment: GameState.finishEating() → Customer.finishEating(int); Cashier.collectOldest(GameState) → GameState.collectPayment(Customer) → Customer.pay(int) → Order.pay(). GameState then updates totals and releases the table.
 
 Result: ConsoleUI calls GameState.result(), then GameResult.isVictory(). There is no GameController.checkVictory(), Chef.cook() or Waiter.serve() method in this snapshot. READY is a state reached inside prepareOneUnit(), not a message named ready().
+
+[Back to main README](../Readme.md)
