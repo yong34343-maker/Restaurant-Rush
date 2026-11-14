@@ -43,5 +43,5 @@ The customers list retains all arrivals, including customers who paid or left. T
 
 Include them because they explain legal states and manager commands. Draw each with the «enumeration» label and its actual constants. Link their use to Order.status, Customer.status, GameController.phase and the WaiterTask parameter respectively. A type dependency is enough; do not give an enum a composition diamond simply because it appears in a field. [S1 enum files and users of those enums]
 
-[Back to README](../../README.md)
+[Back to main README](../Readme.md)
 
