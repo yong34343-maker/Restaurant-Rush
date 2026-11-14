@@ -168,4 +168,4 @@ This is the baseline runnable snapshot. It defines the customer and staff abstra
 - **Game files cannot be found:** extract the ZIP and keep the parent launchers beside the stage folders.
 - **GUI will not open:** run `java -jar RestaurantRush_GUI.jar` from a terminal to see the error message; ensure a desktop display is available.
 
-[Project overview](../Readme.md) · [Turn-by-turn walkthroughs](../guides/TURN_BY_TURN.md)
+[AI History Usage](../ai-history/Stage-1.md) . [Project overview](../Readme.md) · [Turn-by-turn walkthroughs](../guides/TURN_BY_TURN.md)
