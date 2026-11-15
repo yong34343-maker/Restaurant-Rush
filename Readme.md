@@ -51,6 +51,66 @@ If a launcher is unavailable or fails, use one of the direct launch methods belo
 
 Each stage is a separate game. You can launch any stage directly; you do not need to clear an earlier stage first.
 
+## Stage comparisons
+
+Repository: https://github.com/yong34343-maker/Restaurant-Rush
+
+Each stage is a complete copy of the game in its own folder (`stage-1`, `stage-2`, `stage-3`). Git tags mark the commit where each stage was added: [`stage-1`](https://github.com/yong34343-maker/Restaurant-Rush/tree/stage-1), [`stage-2`](https://github.com/yong34343-maker/Restaurant-Rush/tree/stage-2), [`stage-3`](https://github.com/yong34343-maker/Restaurant-Rush/tree/stage-3). Stage commits: [Stage 1](https://github.com/yong34343-maker/Restaurant-Rush/commit/d32de33b5d232753b116e3b81fd30912f4258b46) · [Stage 2](https://github.com/yong34343-maker/Restaurant-Rush/commit/001f51eb672d8f76dde9e84182b1b75f72765335) · [Stage 3](https://github.com/yong34343-maker/Restaurant-Rush/commit/763aad6a8700aa6e3c7938d235e70e9bf74a729e). Each commit adds a whole stage folder, so to see only the changes between stages, run this from the repository folder:
+
+```shell
+git diff --no-index stage-1/src stage-2/src
+git diff --no-index stage-2/src stage-3/src
+```
+
+### Stage 1 → Stage 2 (7 files changed, 50 insertions, 6 deletions)
+
+| File | Change | Reason |
+| --- | --- | --- |
+| `VIPCustomer.java` | New | VIP customer: loses 5 satisfaction per waiting turn and gets 10% off the bill |
+| `CriticCustomer.java` | New | Critic customer: loses 12 per waiting turn and always orders Pasta |
+| `CustomerFactory.java` | Changed | Creates C2 as the VIP and C3 as the Critic; the other four arrivals stay Regular |
+| `Menu.java` | Changed | Adds `getPasta()` so the Critic can ask for Pasta |
+| `Main.java`, `GuiMain.java`, `GameWindow.java` | Changed | Stage name in the banner, window title and help text only |
+| Deleted files | None | |
+
+Unchanged: `GameController`, `GameState`, `Customer`, the staff classes, `Order` and `Table`. They already call the customer's own methods, so the new customer types needed no changes there.
+
+### Stage 2 → Stage 3 (14 files changed, 224 insertions, 27 deletions)
+
+| File | Change | Reason |
+| --- | --- | --- |
+| `Host.java` | New | Staff member who seats one queued customer before the Waiter acts |
+| `ComboMeal.java` | New | A menu item made of two items (Salad + Pasta): 90% of their total price, preparation units added |
+| `PricingPolicy.java`, `HappyHourPolicy.java` | New | Pricing interface and the Happy Hour policy (once per game, two turns, 20% off after the VIP discount, +15 recovery) |
+| `GameController.java`, `TurnPhase.java` | Changed | Adds the Host step to each turn and starts and ends Happy Hour |
+| `GameState.java` | Changed | Owns the Happy Hour policy and uses it to price each order when it is taken |
+| `Customer.java` | Changed | Adds `recoverSatisfaction()` for the Happy Hour recovery, capped at 100 |
+| `Menu.java` | Changed | Adds the combo and the rule for when a customer chooses it |
+| `ConsoleUI.java`, `GameWindow.java` | Changed | Host and Happy Hour choices and displays |
+| `DemoPolicy.java` | Changed | The automatic demo also plays the Host step and Happy Hour |
+| `Main.java`, `GuiMain.java` | Changed | Stage name only |
+| Deleted files | None | |
+
+Unchanged: `Order`, `Chef`, `Cashier`, `Waiter`, `Table`, `Dish` and the customer subclasses.
+
+Stage READMEs: [Stage 1](stage-1/README.md) · [Stage 2](stage-2/README.md) · [Stage 3](stage-3/README.md)
+
+## Presentation video
+
+Video: [RestaurantRush_Group1_Final v1.mp4 (Google Drive)](https://drive.google.com/file/d/1xieeTLqlfOw6v2MiZS5Aa44S59TpPbsR/view?usp=sharing)
+
+| Time | Segment (assignment brief, section 6.2) | Presenter |
+|---|---|---|
+| `1:37` | S1. The game launching from the submitted project | Guntaphon Akwatanakun |
+| `2:45` | S2. Meaningful manager choices, including a decision where staff are constrained | Chitpakdee Pannathut |
+| `3:25` | S3. A dish going READY, then SERVED, then payment | Chitpakdee Pannathut |
+| `3:49` | S4. A VIP and a Critic behaviour | Chitpakdee Pannathut |
+| `5:55` | S5. A Stage 3 feature (Host, Happy Hour, combo) | Yong Ding An |
+| `6:52` | S6. One victory and one defeat | Yong Ding An |
+| `8:24` | S7. The stage tag comparisons | Yong Ding An |
+| `10:19` | S7. The class diagrams and the sequence diagram | Chew Jun Hui |
+| `16:01` | Individual contributions and key learning | everyone |
+
 ## How to win
 
 Complete all **18 turns** and meet **all three** targets:
